@@ -20,7 +20,7 @@ export const getServerSideProps = async () => {
 
   return {
     redirect: {
-      destination: `/${roomId}`,
+      destination: `/home`,
       permanent: false,
     },
   };

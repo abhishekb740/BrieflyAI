@@ -10,7 +10,7 @@ export const getServerSideProps = async () => {
     }),
     headers: {
       "Content-type": "application/json",
-      "x-api-key": process.env.API_KEY || "",
+      "x-api-key": process.env.NEXT_PUBLIC_API_KEY || "",
     },
   });
 

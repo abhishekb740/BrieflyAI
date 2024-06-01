@@ -8,7 +8,6 @@ import {
   useLocalVideo,
   usePeerIds,
   useRoom,
-  useRemoteAudio
 } from "@huddle01/react/hooks";
 import { AccessToken, Role } from "@huddle01/server-sdk/auth";
 import { Inter } from "next/font/google";
@@ -135,7 +134,6 @@ export default function Home({ token }: Props) {
                     : await fetch(
                         `/api/startRecording?roomId=${router.query.roomId}`
                       );
-
                   const data = await status.json();
                   console.log({ data });
                   setIsRecording(!isRecording);
@@ -191,7 +189,7 @@ import { GetServerSidePropsContext } from "next";
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const accessToken = new AccessToken({
-    apiKey: process.env.API_KEY || "",
+    apiKey: process.env.NEXT_PUBLIC_API_KEY || "",
     roomId: ctx.params?.roomId?.toString() || "",
     role: Role.HOST,
     permissions: {

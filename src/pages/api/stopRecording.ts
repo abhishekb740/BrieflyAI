@@ -14,7 +14,7 @@ export default async function handler(
 ) {
   const { roomId } = req.query;
 
-  if (!process.env.NEXT_PUBLIC_PROJECT_ID && !process.env.API_KEY) {
+  if (!process.env.NEXT_PUBLIC_PROJECT_ID && !process.env.NEXT_PUBLIC_API_KEY) {
     return res
       .status(400)
       .json({ error: 'NEXT_PUBLIC_PROJECT_ID and API_KEY are required' });
@@ -22,7 +22,7 @@ export default async function handler(
 
   const recorder = new Recorder(
     process.env.NEXT_PUBLIC_PROJECT_ID!,
-    process.env.API_KEY!
+    process.env.NEXT_PUBLIC_API_KEY!
   );
 
   const recording = await recorder.stop({
@@ -38,7 +38,7 @@ export default async function handler(
       'https://api.huddle01.com/api/v1/get-recordings',
       {
         headers: {
-          'x-api-key': process.env.API_KEY!,
+          'x-api-key': process.env.NEXT_PUBLIC_API_KEY!,
         },
       }
     );

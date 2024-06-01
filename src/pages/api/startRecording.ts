@@ -9,7 +9,7 @@ export default async function handler(
 ) {
   const { roomId } = req.query;
 
-  if (!process.env.NEXT_PUBLIC_PROJECT_ID && !process.env.API_KEY) {
+  if (!process.env.NEXT_PUBLIC_PROJECT_ID && !process.env.NEXT_PUBLIC_API_KEY) {
     return res
       .status(400)
       .json({ error: 'NEXT_PUBLIC_PROJECT_ID and API_KEY are required' });
@@ -17,11 +17,11 @@ export default async function handler(
 
   const recorder = new Recorder(
     process.env.NEXT_PUBLIC_PROJECT_ID!,
-    process.env.API_KEY!
+    process.env.NEXT_PUBLIC_API_KEY!
   );
 
   const token = new AccessToken({
-    apiKey: process.env.API_KEY!,
+    apiKey: process.env.NEXT_PUBLIC_API_KEY!,
     roomId: roomId as string,
     role: Role.BOT,
     permissions: {

@@ -30,24 +30,6 @@ export default async function handler(
   });
 
   console.log('recording', recording);
-
-  const { msg } = recording;
-
-  if (msg === 'Stopped') {
-    const response = await fetch(
-      'https://api.huddle01.com/api/v1/get-recordings',
-      {
-        headers: {
-          'x-api-key': process.env.NEXT_PUBLIC_API_KEY!,
-        },
-      }
-    );
-    const data = await response.json();
-
-    const { recordings } = data as { recordings: Recordings[] };
-
-    return res.status(200).json({ recording: recordings[0] });
-  }
-
-  return res.status(200).json({ recording });
+  
+  return res.status(200).json({ message: "Recording Stopped Succesfully" });
 }

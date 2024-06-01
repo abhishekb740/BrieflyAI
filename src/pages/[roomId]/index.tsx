@@ -70,12 +70,13 @@ export default function Home({ token }: Props) {
   }, [shareStream]);
 
   const closeRoomAndStopMeeting = async () => {
+    
     const response = await fetch(`/api/stopRecording?roomId=${router.query.roomId}`);
     console.log({ response });
-    closeRoom();
     const data = await response.json();
+    closeRoom();
     console.log({ data });
-    router.push("/home");
+    router.push("/summary");
   }
 
   return (

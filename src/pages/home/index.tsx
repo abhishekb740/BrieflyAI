@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { hostname } from "os";
 
 export default function Hero() {
     const [roomId, setRoomId] = useState<string>("");
@@ -8,7 +9,8 @@ export default function Hero() {
         const response = await fetch("https://api.huddle01.com/api/v1/create-room", {
             method: "POST",
             body: JSON.stringify({
-                title: "Huddle01 Room",
+                title: "Summary Room",
+                hostWallets: [`0x${process.env.NEXT_PUBLIC_WALLET_ADDRESS}`]
             }),
             headers: {
                 "Content-type": "application/json",

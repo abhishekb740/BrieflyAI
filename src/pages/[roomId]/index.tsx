@@ -30,12 +30,12 @@ export default function Home({ token }: Props) {
     onJoin: (room) => {
       console.log("onJoin", room);
       updateMetadata({ displayName });
-      // const recordMeet = async () => {
-      //   const status = await fetch(`/api/startRecording?roomId=${router.query.roomId}`);
-      //   const data = await status.json();
-      //   console.log({ data });
-      // }
-      // recordMeet();
+      const recordMeet = async () => {
+        const status = await fetch(`/api/startRecording?roomId=${router.query.roomId}`);
+        const data = await status.json();
+        console.log({ data });
+      }
+      recordMeet();
     },
     onPeerJoin: (peer) => {
       console.log("onPeerJoin", peer);
@@ -69,10 +69,10 @@ export default function Home({ token }: Props) {
   }, [shareStream]);
 
   const closeRoomAndStopMeeting = async () => {
-    // const response = await fetch(`/api/stopRecording?roomId=${router.query.roomId}`);
-    // console.log({ response });
-    // const data = await response.json();
-    // console.log({ data });
+    const response = await fetch(`/api/stopRecording?roomId=${router.query.roomId}`);
+    console.log({ response });
+    const data = await response.json();
+    console.log({ data });
     closeRoom();
     router.push("/summary");
   }

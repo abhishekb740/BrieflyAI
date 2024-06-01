@@ -31,11 +31,11 @@ function ChatBox() {
   };
 
   return (
-    <div className="w-1/3 border-2 border-blue-400 rounded-lg flex flex-col">
+    <div style={{height: '40%', width: '20%'}} className="w-1/3 border-2 border-blue-400 rounded-lg flex flex-col">
       <h1 className="text-center text-2xl my-2 border-b border-blue-400">
         Chat Room
       </h1>
-      <div className="flex-1 p-4 border-b border-blue-400">
+      <div className="p-4 border-b border-blue-400" style={{scrollBehavior: 'smooth', overflowY: 'auto', scrollbarColor: '#c7d2fe #eef2ff', scrollbarWidth: 'thin', overflowX: 'auto', height: '100%'}}>
         {messages.map((message, index) =>
           message.sender === peerId ? (
             <LocalMessageBubble key={index} message={message} />

@@ -3,30 +3,12 @@ import { useRouter } from "next/navigation";
 import { hostname } from "os";
 
 export default function Hero() {
-    const [roomId, setRoomId] = useState<string>("");
     const router = useRouter();
     const startMeeting = async () => {
-        const response = await fetch("https://api.huddle01.com/api/v1/create-room", {
-            method: "POST",
-            body: JSON.stringify({
-                title: "Summary Room",
-                hostWallets: [`0x${process.env.NEXT_PUBLIC_WALLET_ADDRESS}`]
-            }),
-            headers: {
-                "Content-type": "application/json",
-                "x-api-key": process.env.NEXT_PUBLIC_API_KEY || "",
-            },
-        });
+        const response = await fetch("/api/startMeeting");
         const data = await response.json();
-        const roomId = data?.data?.roomId;
-        console.log(roomId);
-        setRoomId(roomId);
-    }
-    useEffect(() => {
-        startMeeting();
-    },[])
-
-    const handleSubmit = () => {
+        console.log(data);
+        const roomId = data?.roomId;
         router.push(`/${roomId}`);
     }
 
@@ -45,7 +27,7 @@ export default function Hero() {
                     Start your meeting now
                 </div>
                 <div>
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded-lg" onClick={handleSubmit}>
+                    <button className="bg-blue-500 text-white px-4 py-2 rounded-lg" onClick={startMeeting}>
                         Start Meeting
                     </button>
                 </div>

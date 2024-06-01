@@ -13,6 +13,7 @@ import { AccessToken, Role } from "@huddle01/server-sdk/auth";
 import { Inter } from "next/font/google";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
+import { Room } from '@huddle01/web-core';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,20 +26,32 @@ export default function Home({ token }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const screenRef = useRef<HTMLVideoElement>(null);
   const router = useRouter();
-  const [isRecording, setIsRecording] = useState<boolean>(false);
 
-  const { joinRoom, state } = useRoom({
+  const { joinRoom, state, closeRoom } = useRoom({
     onJoin: (room) => {
       console.log("onJoin", room);
       updateMetadata({ displayName });
+      const recordMeet = async () => {
+        const status = await fetch(`/api/startRecording?roomId=${router.query.roomId}`);
+        const data = await status.json();
+        console.log({ data });
+      }
+      recordMeet();
     },
     onPeerJoin: (peer) => {
       console.log("onPeerJoin", peer);
     },
+    onLeave: async () => {
+      console.log("onLeave");
+      const response = await fetch(`/api/stopRecording?roomId=${router.query.roomId}`);
+      console.log({ response });
+      const data = await response.json();
+      console.log({ data });
+    },
   });
   const { enableVideo, isVideoOn, stream, disableVideo } = useLocalVideo();
   const { enableAudio, disableAudio, isAudioOn } = useLocalAudio();
-  
+
   const { startScreenShare, stopScreenShare, shareStream } =
     useLocalScreenShare();
   const { updateMetadata } = useLocalPeer<TPeerMetadata>();
@@ -55,6 +68,15 @@ export default function Home({ token }: Props) {
       screenRef.current.srcObject = shareStream;
     }
   }, [shareStream]);
+
+  const closeRoomAndStopMeeting = async () => {
+    const response = await fetch(`/api/stopRecording?roomId=${router.query.roomId}`);
+    console.log({ response });
+    closeRoom();
+    const data = await response.json();
+    console.log({ data });
+    router.push("/home");
+  }
 
   return (
     <main
@@ -126,20 +148,9 @@ export default function Home({ token }: Props) {
               <button
                 type="button"
                 className="bg-blue-500 p-2 mx-2 rounded-lg"
-                onClick={async () => {
-                  const status = isRecording
-                    ? await fetch(
-                        `/api/stopRecording?roomId=${router.query.roomId}`
-                      )
-                    : await fetch(
-                        `/api/startRecording?roomId=${router.query.roomId}`
-                      );
-                  const data = await status.json();
-                  console.log({ data });
-                  setIsRecording(!isRecording);
-                }}
+                onClick={closeRoomAndStopMeeting}
               >
-                {isRecording ? "Stop Recording" : "Start Recording"}
+                Close Meeting
               </button>
             </>
           )}

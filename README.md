@@ -110,7 +110,6 @@ The integration of partner technologies significantly enhanced the platform:
 4. Create a .env file in the server directory and add the necessary environment variables:
   - `OPENAI_API_KEY`: For accessing OpenAI services.
   - `OPENAI_AI_ORG`: For the OpenAI organization ID.
-  - `ELEVENLABS_KEY`: ELEVENLABS API KEY.
 
 5. Run the FastAPI development server:
    ```bash

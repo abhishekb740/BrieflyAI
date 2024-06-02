@@ -13,8 +13,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const formData = new FormData();
         formData.append('file', new File([blob], 'video.mp4', { type: 'video/mp4' }));
 
+        // Get the text from the FastAPI server
+        const apiResponseText = await fetch('http://localhost:8000/text', {
+            method: 'POST',
+            body: formData,
+        });
 
-        // Send the file to the API
+        if (!apiResponseText.ok) {
+            throw new Error('Failed to fetch from FastAPI server');
+        }
+
+        const data = await apiResponseText.json();
+        console.log(data);
+        
+        // Send the file to the API to get the audio
         const apiResponse = await fetch('http://localhost:8000/talk', {
             method: 'POST',
             body: formData,
@@ -26,13 +38,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         // Convert the response to a blob
         const mp3Blob = await apiResponse.blob();
+        const audioBuffer = Buffer.from(await mp3Blob.arrayBuffer());
 
-        // Set the headers for the response
-        res.setHeader('Content-Type', 'audio/mpeg');
-        res.setHeader('Content-Disposition', 'attachment; filename="response.mp3"');
-
-        // Send the MP3 file back to the client
-        res.status(200).send(Buffer.from(await mp3Blob.arrayBuffer()));
+        // Send the audio and text back to the client
+        res.status(200).json({ audio: audioBuffer.toString('base64'), text: data });
 
     } catch (error) {
         console.error('Error downloading or uploading the file:', error);

@@ -6,6 +6,7 @@ import {
     useIsLoggedIn
 } from "@dynamic-labs/sdk-react-core";
 import { BackgroundBeams } from "@/component/ui/background-beams";
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function Hero() {
     const router = useRouter();
@@ -16,7 +17,10 @@ export default function Hero() {
         const roomId = data?.roomId;
         router.push(`/${roomId}`);
     };
-
+    const notify = () => toast('Please Login First!', {
+        icon: '🔒',
+        duration: 4000,
+    });
     return (
         <div className="relative min-h-screen">
             <BackgroundBeams className="absolute inset-0 z-0" />
@@ -36,7 +40,7 @@ export default function Hero() {
                         <div>
                             <button
                                 className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-                                onClick={startMeeting}
+                                onClick={isLoggedIn ? startMeeting : notify}
                             >
                                 {isLoggedIn ? "Start Meeting" : "Please login and start meeting"}
                             </button>
@@ -47,6 +51,7 @@ export default function Hero() {
                     <img src="/meeting1.svg" alt="Meeting Logo" className="max-w-full h-auto" />
                 </div>
             </main>
+            <Toaster />
         </div>
     );
 }

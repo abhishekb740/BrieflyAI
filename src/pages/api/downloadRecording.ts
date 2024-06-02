@@ -3,7 +3,6 @@ import { Recorder } from '@huddle01/server-sdk/recorder';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { mp4Url } = req.query;
-    console.log(mp4Url);
 
     try {
         // Download the video file
@@ -14,16 +13,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const formData = new FormData();
         formData.append('file', new File([blob], 'video.mp4', { type: 'video/mp4' }));
 
-        console.log(formData);
-
 
         // Send the file to the API
         const apiResponse = await fetch('http://localhost:8000/talk', {
             method: 'POST',
             body: formData,
         });
-
-        console.log(apiResponse);
 
         if (!apiResponse.ok) {
             throw new Error('Failed to fetch from FastAPI server');

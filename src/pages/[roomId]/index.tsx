@@ -33,19 +33,11 @@ export default function Home({ token }: Props) {
       const recordMeet = async () => {
         const status = await fetch(`/api/startRecording?roomId=${router.query.roomId}`);
         const data = await status.json();
-        console.log({ data });
       }
       recordMeet();
     },
     onPeerJoin: (peer) => {
       console.log("onPeerJoin", peer);
-    },
-    onLeave: async () => {
-      console.log("onLeave");
-      const response = await fetch(`/api/stopRecording?roomId=${router.query.roomId}`);
-      console.log({ response });
-      const data = await response.json();
-      console.log({ data });
     },
   });
   const { enableVideo, isVideoOn, stream, disableVideo } = useLocalVideo();
@@ -70,9 +62,7 @@ export default function Home({ token }: Props) {
 
   const closeRoomAndStopMeeting = async () => {
     const response = await fetch(`/api/stopRecording?roomId=${router.query.roomId}`);
-    console.log({ response });
     const data = await response.json();
-    console.log({ data });
     closeRoom();
     router.push("/summary");
   }

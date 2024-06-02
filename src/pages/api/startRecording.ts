@@ -46,7 +46,5 @@ export default async function handler(
     token: accessToken,
   });
 
-  console.log('recording', recording);
-
   return res.status(200).json({ recording });
 }

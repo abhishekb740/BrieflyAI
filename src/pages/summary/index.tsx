@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
+
+type Recording = {
+    recordingUrl: string;
+}
+
 const Summary = () => {
     const [loading, setLoading] = useState(false);
-    const [recording, setRecording] = useState();
+    const [recording, setRecording] = useState<Recording>();
     const [audioUrl, setAudioUrl] = useState("");
 
     useEffect(() => {
@@ -10,7 +15,6 @@ const Summary = () => {
             setTimeout(async () => {
                 const response = await fetch(`/api/getLatestRecording`);
                 const data = await response.json();
-                console.log(data);
                 setRecording(data.recording);
             }, 3000)
             setLoading(false);
@@ -22,7 +26,6 @@ const Summary = () => {
         setLoading(true);
         try {
             const response = await fetch(`/api/downloadRecording?mp4Url=${recording?.recordingUrl}`);
-            console.log(response);
             const blob = await response.blob();
             const url = URL.createObjectURL(blob);
             setAudioUrl(url);

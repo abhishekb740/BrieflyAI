@@ -13,6 +13,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
     const data = await response.json();
     const roomId = data?.data?.roomId;
-    console.log(roomId);
     return res.status(200).json({ roomId });
 }

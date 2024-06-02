@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
+
+type Recording = {
+    recordingUrl: string;
+}
+
 const Summary = () => {
     const [loading, setLoading] = useState(false);
-    const [recording, setRecording] = useState();
+    const [recording, setRecording] = useState<Recording>();
     const [audioUrl, setAudioUrl] = useState("");
 
     useEffect(() => {

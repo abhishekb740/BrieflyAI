@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { DynamicWidget, useIsLoggedIn } from "@dynamic-labs/sdk-react-core";
 import { BackgroundBeams } from "@/component/ui/background-beams";
 import toast, { Toaster } from "react-hot-toast";
-import { TypewriterEffectSmooth } from "@/component/ui/typewriter-effect";
 import { FlipWords } from "@/component/ui/flip-words";
 const afacad = Inter({ subsets: ["latin"] });
 const roboto = Roboto({

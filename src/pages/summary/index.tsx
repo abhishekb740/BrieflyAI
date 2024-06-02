@@ -14,9 +14,11 @@ const Summary = () => {
         const getRecording = async () => {
             setLoading(true);
             try {
-                const response = await fetch(`/api/getLatestRecording`);
-                const data = await response.json();
-                setRecording(data.recording);
+                setTimeout(async() => {
+                    const response = await fetch(`/api/getLatestRecording`);
+                    const data = await response.json();
+                    setRecording(data.recording);
+                }, 2500)
             } catch (error) {
                 console.error('Error fetching recording:', error);
             } finally {
@@ -44,21 +46,38 @@ const Summary = () => {
     };
 
     return (
-        <div className="flex flex-col justify-center items-center p-8">
+        <div className="flex flex-col items-center p-8 h-screen">
             <button onClick={handleDownload} disabled={loading}>
-                {loading ? 'Generating...' : 'Generate Summary'}
+                {loading ? 'Please wait we are importing your conversation!' : 'Generate Summary'}
             </button>
-
-            {audioUrl && (
-                <audio controls src={audioUrl} />
-            )}
-            
-            {text && (
-                <div className="mt-4">
-                    <h3>Summary:</h3>
-                    <p>{text}</p>
+            <div className="flex w-full mt-8">
+                <div className="w-3/5 p-4">
+                    {text && (
+                        <div>
+                            <h3 className="font-bold italic">Summary</h3>
+                            <textarea
+                                value={text}
+                                className="w-full text-white bg-black border border-neutral-300"
+                                style={{
+                                    height: 'auto',
+                                    overflowX: 'hidden',
+                                    overflowY: 'auto',
+                                    minHeight: '250px',
+                                }}
+                                readOnly
+                            />
+                        </div>
+                    )}
                 </div>
-            )}
+                <div className="w-2/5 p-4 flex flex-col justify-evenly items-center">
+                    <div className="font-semibold text-2xl">
+                        Too Lazy to read? Listen to the summary instead!
+                    </div>
+                    {audioUrl && (
+                        <audio controls src={audioUrl} />
+                    )}
+                </div>
+            </div>
         </div>
     );
 };

@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
+"use client";
+import React from "react";
 import { useRouter } from "next/navigation";
-import { hostname } from "os";
 import {
   DynamicContextProvider,
   DynamicWidget,
 } from "@dynamic-labs/sdk-react-core";
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 import { BackgroundBeams } from "@/component/ui/background-beams";
-import { GridBackgroundDemo } from "@/component/ui/background-grid";
 
 export default function Hero() {
   const router = useRouter();
@@ -24,33 +23,35 @@ export default function Hero() {
         // Find your environment id at https://app.dynamic.xyz/dashboard/developer
         environmentId: "1567fade-6f87-42cd-b513-56de448a7740",
         walletConnectors: [
-            EthereumWalletConnectors,
-          ],
+          EthereumWalletConnectors,
+        ],
       }}
     >
-      <main className="flex min-h-screen flex-col items-center p-20 gap-16">
-        <div className="flex flex-col gap-8 justify-center items-center">
-          <div className="text-2xl md:text-3xl font-title font-bold">
-            Briefly.AI
+      <div className="relative min-h-screen">
+        <BackgroundBeams className="absolute inset-0 z-0" />
+        <main className="relative z-10 flex min-h-screen flex-col items-center p-20 gap-16">
+          <div className="flex flex-col gap-8 justify-center items-center">
+            <div className="text-2xl md:text-3xl font-title font-bold">
+              Briefly.AI
+            </div>
+            <div className="text-md font md:text-xl">
+              Transforming minutes into meaningful summaries.
+            </div>
+            <DynamicWidget />
           </div>
-          <div className="text-md font md:text-xl">
-            Transforming minutes into meaningful summaries.
+          <div className="flex flex-col gap-16 justify-center items-center">
+            <div className="text-lg md:text-2xl">Start your meeting now</div>
+            <div>
+              <button
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+                onClick={startMeeting}
+              >
+                Start Meeting
+              </button>
+            </div>
           </div>
-          <DynamicWidget />
-        </div>
-        <div className="flex flex-col gap-16 justify-center items-center">
-          <div className="text-lg md:text-2xl">Start your meeting now</div>
-          <div>
-            <button
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-              onClick={startMeeting}
-            >
-              Start Meeting
-            </button>
-          </div>
-        </div>
-      <BackgroundBeams/>
-      </main>
+        </main>
+      </div>
     </DynamicContextProvider>
   );
 }

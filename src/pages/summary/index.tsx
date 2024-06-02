@@ -93,20 +93,20 @@ const Summary = () => {
                     )}
                 </div>}
             </div>
-            <div className="flex flex-row justify-center gap-4 items-center mt-8">
+           {firstTime && <div className="flex flex-row justify-center gap-4 items-center mt-8">
                 <div className="font-semibold text-lg">
                     Not Satisfied with the response?
                 </div>
                 <div>
-                    {firstTime && <button
+                    <button
                         onClick={handleDownload}
                         disabled={downloadLoading}
                         className={`px-4 py-2 rounded-md text-white ${downloadLoading ? 'bg-gray-600 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
                     >
                         {downloadLoading ? 'Please wait, we are regenerating your summary!' : 'Re-Generate Summary'}
-                    </button>}
+                    </button>
                 </div>
-            </div>
+            </div>}
         </div>
     );
 };

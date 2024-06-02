@@ -31,7 +31,7 @@ function ChatBox() {
   };
 
   return (
-    <div style={{height: '40%', width: '20%'}} className="w-1/3 border-2 border-blue-400 rounded-lg flex flex-col">
+    <div style={{height: '70%', width: '20%'}} className="w-1/3 border-2 border-blue-400 rounded-lg flex flex-col">
       <h1 className="text-center text-2xl my-2 border-b border-blue-400">
         Chat Room
       </h1>

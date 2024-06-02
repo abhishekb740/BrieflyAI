@@ -24,6 +24,7 @@ export default function Home({ token }: Props) {
   const [displayName, setDisplayName] = useState<string>("");
   const videoRef = useRef<HTMLVideoElement>(null);
   const screenRef = useRef<HTMLVideoElement>(null);
+  const [remotePeers, setRemotePeers] = useState([]);
   const router = useRouter();
 
   const { joinRoom, state, closeRoom } = useRoom({
@@ -37,7 +38,7 @@ export default function Home({ token }: Props) {
       recordMeet();
     },
     onPeerJoin: (peer) => {
-      console.log("onPeerJoin", peer);
+      console.log(peer);
     },
   });
   const { enableVideo, isVideoOn, stream, disableVideo } = useLocalVideo();
@@ -46,7 +47,9 @@ export default function Home({ token }: Props) {
   const { startScreenShare, stopScreenShare, shareStream } =
     useLocalScreenShare();
   const { updateMetadata } = useLocalPeer<TPeerMetadata>();
+
   const { peerIds } = usePeerIds();
+
 
   useEffect(() => {
     if (stream && videoRef.current) {
@@ -146,10 +149,10 @@ export default function Home({ token }: Props) {
         </div>
       </div>
 
-      <div style={{height: '100vh'}} className="w-full mt-8 flex gap-4 justify-between">
-        <div className="justify-between items-center flex flex-col">
-          <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-            <div className="relative flex gap-2">
+      <div style={{ height: '100vh' }} className="w-full mt-8 flex gap-4 justify-between">
+        <div className="">
+          <div className="">
+            <div className="flex flex-row justify-center items-center">
               {isVideoOn && (
                 <div className="w-1/2 mx-auto border-2 rounded-xl border-blue-400">
                   <video

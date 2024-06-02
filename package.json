@@ -9,12 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@dynamic-labs/ethereum": "^2.0.8",
+    "@dynamic-labs/ethers-v5": "^2.0.8",
+    "@dynamic-labs/sdk-react-core": "^2.0.8",
+    "@headlessui/react": "^2.0.4",
     "@huddle01/react": "latest",
     "@huddle01/server-sdk": "latest",
+    "@privy-io/react-auth": "^1.67.0",
     "cors": "^2.8.5",
     "next": "14.0.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "viem": "^2.13.3"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

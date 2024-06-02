@@ -29,26 +29,32 @@ export default function Hero() {
     >
       <div className="relative min-h-screen">
         <BackgroundBeams className="absolute inset-0 z-0" />
-        <main className="relative z-10 flex min-h-screen flex-col items-center p-20 gap-16">
-          <div className="flex flex-col gap-8 justify-center items-center">
-            <div className="text-2xl md:text-3xl font-title font-bold">
-              Briefly.AI
+        <main className="relative z-10 flex min-h-screen flex-row p-20">
+          <div className="flex flex-col gap-16 justify-center items-center w-2/3">
+            <div className="flex flex-col gap-8 items-center">
+              <div className="text-2xl md:text-3xl font-title font-bold">
+                Briefly.AI
+              </div>
+              <div className="text-md font md:text-xl text-center">
+                Transforming minutes into meaningful summaries.
+              </div>
+              <DynamicWidget />
             </div>
-            <div className="text-md font md:text-xl">
-              Transforming minutes into meaningful summaries.
+            <div className="flex flex-col gap-16 items-center">
+              <div className="text-lg md:text-2xl">Start your meeting now</div>
+              <div>
+                <button
+                  className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+                  onClick={startMeeting}
+                >
+                  Start Meeting
+                </button>
+              </div>
             </div>
-            <DynamicWidget />
           </div>
-          <div className="flex flex-col gap-16 justify-center items-center">
-            <div className="text-lg md:text-2xl">Start your meeting now</div>
-            <div>
-              <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-                onClick={startMeeting}
-              >
-                Start Meeting
-              </button>
-            </div>
+          <div className="flex justify-center items-center w-1/3">
+            {/* Placeholder for the image */}
+            <img src="C:/Users/thedh/OneDrive/Desktop/Web3Bytes/logo.jpg" alt="Right Side Image" className="max-w-full h-auto"/>
           </div>
         </main>
       </div>

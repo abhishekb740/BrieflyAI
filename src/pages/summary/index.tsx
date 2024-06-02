@@ -9,12 +9,13 @@ const Summary = () => {
     const [recording, setRecording] = useState<Recording>();
     const [audioUrl, setAudioUrl] = useState("");
     const [text, setText] = useState("");
+    const [downloadLoading, setDownloadLoading] = useState(false);
 
     useEffect(() => {
         const getRecording = async () => {
             setLoading(true);
             try {
-                setTimeout(async() => {
+                setTimeout(async () => {
                     const response = await fetch(`/api/getLatestRecording`);
                     const data = await response.json();
                     setRecording(data.recording);
@@ -29,7 +30,7 @@ const Summary = () => {
     }, []);
 
     const handleDownload = async () => {
-        setLoading(true);
+        setDownloadLoading(true);
         try {
             const response = await fetch(`/api/downloadRecording?mp4Url=${recording?.recordingUrl}`);
             const data = await response.json();
@@ -41,42 +42,53 @@ const Summary = () => {
         } catch (error) {
             console.error('Error generating summary:', error);
         } finally {
-            setLoading(false);
+            setDownloadLoading(false);
         }
     };
 
     return (
-        <div className="flex flex-col items-center p-8 h-screen">
-            <button onClick={handleDownload} disabled={loading}>
-                {loading ? 'Please wait we are importing your conversation!' : 'Generate Summary'}
+        <div className="flex flex-col items-center p-8 min-h-screen bg-black text-white">
+            <button
+                onClick={handleDownload}
+                disabled={downloadLoading}
+                className={`px-4 py-2 rounded-md text-white ${downloadLoading ? 'bg-gray-600 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
+            >
+                {downloadLoading ? 'Please wait, we are generating your summary!' : 'Generate Summary'}
             </button>
-            <div className="flex w-full mt-8">
-                <div className="w-3/5 p-4">
+            <div className="flex flex-col md:flex-row w-full mt-8 space-y-8 md:space-y-0 md:space-x-8">
+                {text && <div className="w-full md:w-3/5 p-4 bg-gray-900 rounded-md min-h-[70vh]">
                     {text && (
                         <div>
-                            <h3 className="font-bold italic">Summary</h3>
+                            <h3 className="font-bold italic mb-4">Summary</h3>
                             <textarea
                                 value={text}
-                                className="w-full text-white bg-black border border-neutral-300"
+                                className="w-full p-4 bg-black border border-neutral-600 rounded-md"
                                 style={{
                                     height: 'auto',
                                     overflowX: 'hidden',
                                     overflowY: 'auto',
-                                    minHeight: '250px',
+                                    minHeight: '50vh',
                                 }}
                                 readOnly
                             />
                         </div>
                     )}
-                </div>
-                <div className="w-2/5 p-4 flex flex-col justify-evenly items-center">
-                    <div className="font-semibold text-2xl">
-                        Too Lazy to read? Listen to the summary instead!
+                </div>}
+                {audioUrl && <div className="w-full md:w-2/5 p-4 flex flex-col justify-center gap-8 items-center bg-gray-900 rounded-md min-h-[70vh]">
+                    <div className="font-semibold text-2xl mb-4 text-center">
+                        {audioUrl && (
+                            <div className="flex flex-col pb-6">
+                                <span>
+                                    Too Lazy to read?
+                                </span>
+                                Listen to the summary instead!
+                            </div>
+                        )}
                     </div>
                     {audioUrl && (
-                        <audio controls src={audioUrl} />
+                        <audio controls src={audioUrl} className="w-full mb-12" />
                     )}
-                </div>
+                </div>}
             </div>
         </div>
     );

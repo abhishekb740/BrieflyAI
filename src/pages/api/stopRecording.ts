@@ -28,8 +28,6 @@ export default async function handler(
   const recording = await recorder.stop({
     roomId: roomId as string,
   });
-
-  console.log('recording', recording);
   
   return res.status(200).json({ message: "Recording Stopped Succesfully" });
 }

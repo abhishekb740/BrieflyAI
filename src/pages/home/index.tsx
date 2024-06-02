@@ -14,7 +14,6 @@ export default function Hero() {
   const startMeeting = async () => {
     const response = await fetch("/api/startMeeting");
     const data = await response.json();
-    console.log(data);
     const roomId = data?.roomId;
     router.push(`/${roomId}`);
   };

@@ -20,7 +20,6 @@ const RemotePeer = ({ peerId }: Props) => {
   const screenAudioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    console.log('stream', stream);
     if (stream && vidRef.current && state === 'playable') {
       vidRef.current.srcObject = stream;
 

@@ -5,9 +5,9 @@ import {
   DynamicContextProvider,
   DynamicWidget,
 } from "@dynamic-labs/sdk-react-core";
-import { EthersExtension } from "@dynamic-labs/ethers-v5";
-
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
+import { BackgroundBeams } from "@/component/ui/background-beams";
+import { GridBackgroundDemo } from "@/component/ui/background-grid";
 
 export default function Hero() {
   const router = useRouter();
@@ -23,7 +23,10 @@ export default function Hero() {
     <DynamicContextProvider
       settings={{
         // Find your environment id at https://app.dynamic.xyz/dashboard/developer
-        environmentId: "78ed312b-ff00-49e5-ab43-53abb4d89bf1",
+        environmentId: "1567fade-6f87-42cd-b513-56de448a7740",
+        walletConnectors: [
+            EthereumWalletConnectors,
+          ],
       }}
     >
       <main className="flex min-h-screen flex-col items-center p-20 gap-16">
@@ -47,6 +50,7 @@ export default function Hero() {
             </button>
           </div>
         </div>
+      <BackgroundBeams/>
       </main>
     </DynamicContextProvider>
   );

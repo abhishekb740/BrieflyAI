@@ -16,10 +16,14 @@
     "@huddle01/react": "latest",
     "@huddle01/server-sdk": "latest",
     "@privy-io/react-auth": "^1.67.0",
+    "clsx": "^2.1.1",
     "cors": "^2.8.5",
+    "framer-motion": "^11.2.10",
+    "mini-svg-data-uri": "^1.4.4",
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",
+    "tailwind-merge": "^2.3.0",
     "viem": "^2.13.3"
   },
   "devDependencies": {

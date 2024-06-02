@@ -34,8 +34,8 @@ export default function Hero() {
       <main className="relative z-10 flex min-h-screen flex-row p-20">
         <div className="flex flex-col gap-16 justify-center items-center w-2/3">
           <div className="flex flex-col gap-8 items-center">
-              <div className="text-4xl mx-auto font-normal text-neutral-600 dark:text-neutral-400">
-                <FlipWords words={words} className="text-5xl py-2 font-semibold"/>
+              <div className="text-6xl mx-auto font-normal text-neutral-600 dark:text-neutral-400">
+                <FlipWords words={words} className="text-7xl py-2 font-semibold"/>
                 your meetings with <span className="text-blue-500">Briefly.ai</span>
               </div>
               <br/>
@@ -51,11 +51,11 @@ export default function Hero() {
             </div>
             <br /> */}
           </div>
-          <div className="flex flex-col gap-16 items-center">
-            <div className="text-lg md:text-4xl text-slate-300">Start your meeting now</div>
+          <div className="flex flex-col gap-6 items-center">
+            <div className="text-lg md:text-4xl text-slate-300">Start an instant meeting</div>
             <div>
               <button
-                className="bg-blue-500 text-white px-5 py-3 rounded-lg font-semibold"
+                className="border border-white text-white px-5 py-3 rounded-lg font-semibold"
                 onClick={isLoggedIn ? startMeeting : notify}
               >
                 {isLoggedIn ? "Start Meeting" : "Please login to start meeting"}

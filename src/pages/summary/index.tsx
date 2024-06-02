@@ -10,6 +10,7 @@ const Summary = () => {
     const [audioUrl, setAudioUrl] = useState("");
     const [text, setText] = useState("");
     const [downloadLoading, setDownloadLoading] = useState(false);
+    const [firstTime, setFirstTime] = useState(false);
 
     useEffect(() => {
         const getRecording = async () => {
@@ -18,6 +19,7 @@ const Summary = () => {
                 setTimeout(async () => {
                     const response = await fetch(`/api/getLatestRecording`);
                     const data = await response.json();
+                    console.log(data);
                     setRecording(data.recording);
                 }, 2500)
             } catch (error) {
@@ -37,6 +39,7 @@ const Summary = () => {
             const audioBlob = new Blob([Uint8Array.from(atob(data.audio), c => c.charCodeAt(0))], { type: 'audio/mpeg' });
             const audioUrl = URL.createObjectURL(audioBlob);
             setAudioUrl(audioUrl);
+            setFirstTime(true);
             console.log(data.text);
             setText(data.text);
         } catch (error) {
@@ -48,13 +51,13 @@ const Summary = () => {
 
     return (
         <div className="flex flex-col items-center p-8 min-h-screen bg-black text-white">
-            <button
+            {!firstTime && <button
                 onClick={handleDownload}
                 disabled={downloadLoading}
                 className={`px-4 py-2 rounded-md text-white ${downloadLoading ? 'bg-gray-600 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
             >
                 {downloadLoading ? 'Please wait, we are generating your summary!' : 'Generate Summary'}
-            </button>
+            </button>}
             <div className="flex flex-col md:flex-row w-full mt-8 space-y-8 md:space-y-0 md:space-x-8">
                 {text && <div className="w-full md:w-3/5 p-4 bg-gray-900 rounded-md min-h-[70vh]">
                     {text && (
@@ -89,6 +92,20 @@ const Summary = () => {
                         <audio controls src={audioUrl} className="w-full mb-12" />
                     )}
                 </div>}
+            </div>
+            <div className="flex flex-row justify-center gap-4 items-center mt-8">
+                <div className="font-semibold text-lg">
+                    Not Satisfied with the response?
+                </div>
+                <div>
+                    {firstTime && <button
+                        onClick={handleDownload}
+                        disabled={downloadLoading}
+                        className={`px-4 py-2 rounded-md text-white ${downloadLoading ? 'bg-gray-600 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
+                    >
+                        {downloadLoading ? 'Please wait, we are regenerating your summary!' : 'Re-Generate Summary'}
+                    </button>}
+                </div>
             </div>
         </div>
     );

@@ -47,7 +47,6 @@ This AI-assisted meeting and call platform was built using a combination of mode
 - **API Keys and Organization IDs**: Managed securely through environment variables.
   - `OPENAI_API_KEY`: For accessing OpenAI services.
   - `OPENAI_AI_ORG`: For the OpenAI organization ID.
-  - `ELEVENLABS_KEY`: ELEVENLABS API KEY.
 
 ### Environment Variables for client folder
 - **API Keys and Project IDs**: Managed securely through environment variables.
@@ -109,7 +108,7 @@ The integration of partner technologies significantly enhanced the platform:
 3. Install dependencies
   
 4. Create a .env file in the server directory and add the necessary environment variables:
-   - `OPENAI_API_KEY`: For accessing OpenAI services.
+  - `OPENAI_API_KEY`: For accessing OpenAI services.
   - `OPENAI_AI_ORG`: For the OpenAI organization ID.
   - `ELEVENLABS_KEY`: ELEVENLABS API KEY.
 
